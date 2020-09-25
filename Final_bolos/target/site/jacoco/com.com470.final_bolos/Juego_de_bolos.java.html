@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Juego_de_bolos.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Final_bolos</a> &gt; <a href="index.source.html" class="el_package">com.com470.final_bolos</a> &gt; <span class="el_source">Juego_de_bolos.java</span></div><h1>Juego_de_bolos.java</h1><pre class="source lang-java linenums">
+package com.com470.final_bolos;
+
+<span class="fc" id="L4">public class Juego_de_bolos {</span>
+<span class="fc" id="L5">    private int puntaje = 0;</span>
+<span class="fc" id="L6">    private int[] tiros = new int[21];</span>
+<span class="fc" id="L7">    private int tiroActual = 0;</span>
+    
+    public void lanzar(int bolos){
+<span class="fc" id="L10">        tiros[tiroActual] = bolos;</span>
+<span class="fc" id="L11">        tiroActual++;</span>
+<span class="fc" id="L12">        puntaje+=bolos;</span>
+<span class="fc" id="L13">    }</span>
+    
+    public int puntuacion(){
+<span class="fc" id="L16">        int total = 0;</span>
+<span class="fc" id="L17">        int indiceJugada = 0;</span>
+<span class="fc bfc" id="L18" title="All 2 branches covered.">        for(int jugada=0;jugada&lt;10;jugada++){</span>
+<span class="pc bpc" id="L19" title="1 of 2 branches missed.">            if(esStrike(indiceJugada)){</span>
+                //Si es strike, recibe bono de la suma de los dos proximos turnos
+<span class="nc" id="L21">                total+=10+ultimoStrike(indiceJugada);</span>
+<span class="nc" id="L22">                indiceJugada++;</span>
+            }
+            else{
+                //Si es spare, recibe bono de la suma del siguiente turno
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">                if(esSpare(indiceJugada)){</span>
+<span class="nc" id="L27">                    total+=10+tiros[indiceJugada+2];</span>
+                }
+                else{
+<span class="fc" id="L30">                    total+=sumaDeLanzamientos(indiceJugada);</span>
+                }
+<span class="fc" id="L32">                indiceJugada+=2;</span>
+            }
+        }
+<span class="fc" id="L35">        return total;</span>
+    }
+    
+    private int sumaDeLanzamientos(int indiceTurno){
+<span class="fc" id="L39">        return tiros[indiceTurno]+tiros[indiceTurno+1];</span>
+    }
+    
+    //Es spare cuando en las dos oportunidades de un turno se derriban los 10 pinos
+    public boolean esSpare(int indiceTurno){
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if(tiros[indiceTurno]+tiros[indiceTurno+1]==10){</span>
+<span class="fc" id="L45">            return true;</span>
+        }
+        else{
+<span class="fc" id="L48">            return false;</span>
+        }
+    }
+    
+    public int ultimoStrike(int indiceTurno){
+<span class="nc" id="L53">        return tiros[indiceTurno+1]+tiros[indiceTurno+2];</span>
+    }
+    
+    //Es strike cuando en la primera oportunidad de un turno se derriban 10 pinos
+    public boolean esStrike(int indiceTurno){
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        if(tiros[indiceTurno]==10){</span>
+<span class="fc" id="L59">            return true;</span>
+        }
+        else{
+<span class="fc" id="L62">            return false;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
